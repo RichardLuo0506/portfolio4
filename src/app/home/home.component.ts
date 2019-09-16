@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavBarService } from '../nav-bar/nav-bar.service';
 
 @Component({
 	selector: 'app-home',
@@ -7,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-	constructor() { }
+	constructor(private navBarService: NavBarService) { }
 
 	ngOnInit() {
 	}
 
 	onSectionChange(sectionId: string) {
-		console.log(sectionId);
+		this.navBarService.onSectionChanged(sectionId);
 	}
 }
