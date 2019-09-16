@@ -1,0 +1,54 @@
+@import variables
+#welcome
+	height: 100vh
+	display: flex
+	.half
+		flex: 0 0 50%
+		&.left-half
+			display: flex
+			flex-direction: column
+			header
+				color: white
+				background: $dark
+				font-family: $product-sans-bold
+				height: 106px
+				padding: 0 30px
+				display: flex 
+				align-items: center
+				font-size: 30px
+				letter-spacing: 1px
+				.subtitle
+					font-family: $roboto
+					font-size: 20px
+					color: $dark-subtext
+					margin-left: 20px
+					font-weight: 300
+			.photo
+				flex: 1
+				background: url('../../assets/img/me.jpg') 70% center no-repeat
+				background-size: cover
+		&.right-half
+			display: flex
+			flex-direction: column
+			.blog-panel
+				flex: 1
+			.portfolio-panel
+				display: flex
+				position: relative
+				.portfolio-item-wrapper
+					flex: 0 0 30%
+					.portfolio-item
+						padding-top: 120%
+						position: relative
+						.inner
+							position: absolute
+							top: 0 
+							right: 0
+							bottom: 0
+							left: 0
+				.show-portfolio
+					flex: 0 0 40%
+
+
+
+
