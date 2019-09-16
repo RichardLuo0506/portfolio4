@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
+import { AngularTooltipModule } from '@gustafguner/angular-tooltip';
 import { ScrollSpyDirective } from './scroll-spy.directive';
 import { WindowRef } from './window-ref.service';
 import { NavBarService } from './nav-bar/nav-bar.service';
@@ -23,7 +24,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularTooltipModule
   ],
   providers: [WindowRef, NavBarService],
   bootstrap: [AppComponent]

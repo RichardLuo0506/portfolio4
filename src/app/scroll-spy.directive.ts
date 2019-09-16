@@ -13,6 +13,7 @@ export class ScrollSpyDirective {
 
 	@HostListener('window:scroll', ['$event'])
 	onWindowScroll(event: any) {
+		console.log('scroll');
 		let currentSection: string;
 		const children = this._el.nativeElement.children;
 		const scrollTop = this.winRef.nativeWindow.scrollY;

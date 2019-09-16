@@ -10,7 +10,8 @@ export class BlogService {
 	constructor() {
 		this._blogs = [
 			new Blog('New Portfolio Site'),
-			new Blog('Relearning Angular')
+			new Blog('Relearning Angular'),
+			new Blog('Finally Using ES6'),
 		]
 	}
 
