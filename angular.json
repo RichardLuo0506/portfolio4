@@ -11,7 +11,32 @@
       {
         "@schematics/angular:component":
         {
-          "style": "sass"
+          "style": "sass",
+          "spec": false
+        },
+        "@schematics/angular:class":
+        {
+          "spec": false
+        },
+        "@schematics/angular:directive":
+        {
+          "spec": false
+        },
+        "@schematics/angular:guard":
+        {
+          "spec": false
+        },
+        "@schematics/angular:module":
+        {
+          "spec": false
+        },
+        "@schematics/angular:pipe":
+        {
+          "spec": false
+        },
+        "@schematics/angular:service":
+        {
+          "spec": false
         }
       },
       "root": "",
