@@ -1,9 +1,9 @@
-export class Blog {
+export class Article {
 	private link: string
 
 	constructor(
 		private title: string,
-		private description?: string,
+		private blurb?: string,
 		private content?: string,
 	) {
 		this.link = this.titleToUrl(this.title)

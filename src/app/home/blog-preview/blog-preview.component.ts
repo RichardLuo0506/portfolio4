@@ -7,15 +7,18 @@ import { BlogService } from '../../blog/blog.service';
 	styleUrls: ['./blog-preview.component.sass']
 })
 export class BlogPreviewComponent implements OnInit {
-	private _blogs: any[]
+	private _articles: any[]
+	private articleIndex = 0
+	private featuredArticle
 
 	constructor(private blogService: BlogService) { }
 
 	ngOnInit() {
-		this._blogs = this.blogService.blogs
+		this._articles = this.blogService.articles
+		this.featuredArticle = this._articles[this.articleIndex]
 	}
 
-	get blogs() {
-		return this._blogs
+	get articles() {
+		return this._articles
 	}
 }

@@ -36,8 +36,11 @@ export class AmbientCanvas {
 	private zOff
 	private backgroundColor
 	private particlePropsLength
+	private rangeY
+	private baseRadius
+	private rangeRadius
 
-	constructor(type: string) {
+	constructor(private type: string) {
 		// utils
 		this.utils.PI = Math.PI
 		this.utils.cos = Math.cos
@@ -81,9 +84,31 @@ export class AmbientCanvas {
 			xOff: 0.0025,
 			yOff: 0.005,
 			zOff: 0.0005,
-			backgroundColor: 'rgb(60,50%,3%,1)',
+			backgroundColor: 'hsla(60,50%,3%,1)',
 		}
 		this.defaults.coalesce.particlePropsLength = this.defaults.coalesce.particleCount * this.defaults.coalesce.particlePropCount
+
+		this.defaults.swirl = {
+			particleCount: 700,
+			particlePropCount: 9,
+			rangeY: 100,
+			baseTTL: 50,
+			rangeTTL: 150,
+			baseSpeed: 0.1,
+			rangeSpeed: 2,
+			baseRadius: 1,
+			rangeRadius: 4,
+			baseHue: 220,
+			rangeHue: 100,
+			noiseSteps: 8,
+			xOff: 0.00125,
+			yOff: 0.00125,
+			zOff: 0.0005,
+			backgroundColor: 'hsla(260,40%,5%,1)',
+		}
+
+		this.defaults.swirl.particlePropsLength = this.defaults.coalesce.particleCount * this.defaults.coalesce.particlePropCount
+
 
 		this.extendConfig(this.defaults[type])
 	}
@@ -120,135 +145,205 @@ export class AmbientCanvas {
 	}
 
 	resize() {
-		const { offsetWidth, offsetHeight } = this.container;
+		const { offsetWidth, offsetHeight } = this.container
 
-		this.canvas.a.width = offsetWidth;
-		this.canvas.a.height = offsetHeight;
+		this.canvas.a.width = offsetWidth
+		this.canvas.a.height = offsetHeight
 
-		this.ctx.a.drawImage(this.canvas.b, 0, 0);
+		this.ctx.a.drawImage(this.canvas.b, 0, 0)
 
-		this.canvas.b.width = offsetWidth;
-		this.canvas.b.height = offsetHeight;
+		this.canvas.b.width = offsetWidth
+		this.canvas.b.height = offsetHeight
 
-		this.ctx.b.drawImage(this.canvas.a, 0, 0);
+		this.ctx.b.drawImage(this.canvas.a, 0, 0)
 
-		this.center[0] = 0.5 * this.canvas.a.width;
-		this.center[1] = 0.5 * this.canvas.a.height;
+		this.center[0] = 0.5 * this.canvas.a.width
+		this.center[1] = 0.5 * this.canvas.a.height
 	}
 
 	initParticles() {
-		this.tick = 0;
-		this.particleProps = new Float32Array(this.particlePropsLength);
+		this.tick = 0
 
-		let i;
+		if (this.type === 'swirl')
+			this.simplex = new SimplexNoise()
+
+		this.particleProps = new Float32Array(this.particlePropsLength)
+
+		let i
 
 		for (i = 0; i < this.particlePropsLength; i += this.particlePropCount) {
-			this.initParticle(i);
+			this.initParticle(i)
 		}
 	}
 
 	initParticle(i) {
-		let theta, x, y, vx, vy, life, ttl, speed, size, hue;
+		if (this.type === 'coalesce') {
+			let theta, x, y, vx, vy, life, ttl, speed, size, hue
+			x = this.utils.rand(this.canvas.a.width)
+			y = this.utils.rand(this.canvas.a.height)
+			theta = this.utils.angle(x, y, this.center[0], this.center[1])
+			vx = this.utils.cos(theta) * 6
+			vy = this.utils.sin(theta) * 6
+			life = 0
+			ttl = this.baseTTL + this.utils.rand(this.rangeTTL)
+			speed = this.baseSpeed + this.utils.rand(this.rangeSpeed)
+			size = this.baseSize + this.utils.rand(this.rangeSize)
+			hue = this.baseHue + this.utils.rand(this.rangeHue)
 
-		x = this.utils.rand(this.canvas.a.width);
-		y = this.utils.rand(this.canvas.a.height);
-		theta = this.utils.angle(x, y, this.center[0], this.center[1]);
-		vx = this.utils.cos(theta) * 6;
-		vy = this.utils.sin(theta) * 6;
-		life = 0;
-		ttl = this.baseTTL + this.utils.rand(this.rangeTTL);
-		speed = this.baseSpeed + this.utils.rand(this.rangeSpeed);
-		size = this.baseSize + this.utils.rand(this.rangeSize);
-		hue = this.baseHue + this.utils.rand(this.rangeHue);
+			this.particleProps.set([x, y, vx, vy, life, ttl, speed, size, hue], i)
+		} else if (this.type === 'swirl') {
+			let x, y, vx, vy, life, ttl, speed, radius, hue;
 
-		this.particleProps.set([x, y, vx, vy, life, ttl, speed, size, hue], i);
+			x = this.utils.rand(this.canvas.a.width);
+			y = this.center[1] + this.utils.randRange(this.rangeY);
+			vx = 0;
+			vy = 0;
+			life = 0;
+			ttl = this.baseTTL + this.utils.rand(this.rangeTTL);
+			speed = this.baseSpeed + this.utils.rand(this.rangeSpeed);
+			radius = this.baseRadius + this.utils.rand(this.rangeRadius);
+			hue = this.baseHue + this.utils.rand(this.rangeHue);
+
+			this.particleProps.set([x, y, vx, vy, life, ttl, speed, radius, hue], i);
+		}
 	}
 
 	draw() {
-		this.tick++;
-		this.ctx.a.clearRect(0, 0, this.canvas.a.width, this.canvas.a.height);
-		this.ctx.b.fillStyle = this.backgroundColor;
-		this.ctx.b.fillRect(0, 0, this.canvas.a.width, this.canvas.a.height);
+		this.tick++
+		this.ctx.a.clearRect(0, 0, this.canvas.a.width, this.canvas.a.height)
+		this.ctx.b.fillStyle = this.backgroundColor
+		this.ctx.b.fillRect(0, 0, this.canvas.a.width, this.canvas.a.height)
 
-		this.drawParticles();
-		this.renderGlow();
-		this.render();
+		this.drawParticles()
+		this.renderGlow()
+		this.render()
 
-		window.requestAnimationFrame(this.draw.bind(this));
+		window.requestAnimationFrame(this.draw.bind(this))
 	}
 
 	drawParticles() {
-		let i;
+		let i
 
 		for (i = 0; i < this.particlePropsLength; i += this.particlePropCount) {
-			this.updateParticle(i);
+			this.updateParticle(i)
 		}
 	}
 
 	updateParticle(i) {
-		let i2 = 1 + i, i3 = 2 + i, i4 = 3 + i, i5 = 4 + i, i6 = 5 + i, i7 = 6 + i, i8 = 7 + i, i9 = 8 + i;
-		let x, y, theta, vx, vy, life, ttl, speed, x2, y2, size, hue;
+		if (this.type === 'coalesce') {
+			let i2 = 1 + i, i3 = 2 + i, i4 = 3 + i, i5 = 4 + i, i6 = 5 + i, i7 = 6 + i, i8 = 7 + i, i9 = 8 + i
+			let x, y, theta, vx, vy, life, ttl, speed, x2, y2, size, hue
 
-		x = this.particleProps[i];
-		y = this.particleProps[i2];
-		theta = this.utils.angle(x, y, this.center[0], this.center[1]) + 0.75 * this.utils.HALF_PI;
-		vx = this.utils.lerp(this.particleProps[i3], 2 * this.utils.cos(theta), 0.05);
-		vy = this.utils.lerp(this.particleProps[i4], 2 * this.utils.sin(theta), 0.05);
-		life = this.particleProps[i5];
-		ttl = this.particleProps[i6];
-		speed = this.particleProps[i7];
-		x2 = x + vx * speed;
-		y2 = y + vy * speed;
-		size = this.particleProps[i8];
-		hue = this.particleProps[i9];
+			x = this.particleProps[i]
+			y = this.particleProps[i2]
+			theta = this.utils.angle(x, y, this.center[0], this.center[1]) + 0.75 * this.utils.HALF_PI
+			vx = this.utils.lerp(this.particleProps[i3], 2 * this.utils.cos(theta), 0.05)
+			vy = this.utils.lerp(this.particleProps[i4], 2 * this.utils.sin(theta), 0.05)
+			life = this.particleProps[i5]
+			ttl = this.particleProps[i6]
+			speed = this.particleProps[i7]
+			x2 = x + vx * speed
+			y2 = y + vy * speed
+			size = this.particleProps[i8]
+			hue = this.particleProps[i9]
 
-		this.drawParticle(x, y, theta, life, ttl, size, hue);
+			this.drawParticleCoalesce(x, y, theta, life, ttl, size, hue)
 
-		life++;
+			life++
 
-		this.particleProps[i] = x2;
-		this.particleProps[i2] = y2;
-		this.particleProps[i3] = vx;
-		this.particleProps[i4] = vy;
-		this.particleProps[i5] = life;
+			this.particleProps[i] = x2
+			this.particleProps[i2] = y2
+			this.particleProps[i3] = vx
+			this.particleProps[i4] = vy
+			this.particleProps[i5] = life
 
-		life > ttl && this.initParticle(i);
+			life > ttl && this.initParticle(i)
+		} else if (this.type === 'swirl') {
+			let i2 = 1 + i, i3 = 2 + i, i4 = 3 + i, i5 = 4 + i, i6 = 5 + i, i7 = 6 + i, i8 = 7 + i, i9 = 8 + i
+			let n, x, y, vx, vy, life, ttl, speed, x2, y2, radius, hue
+
+			x = this.particleProps[i]
+			y = this.particleProps[i2]
+			n = this.simplex.noise3D(x * this.xOff, y * this.yOff, this.tick * this.zOff) * this.noiseSteps * this.utils.TAU
+			vx = this.utils.lerp(this.particleProps[i3], this.utils.cos(n), 0.5)
+			vy = this.utils.lerp(this.particleProps[i4], this.utils.sin(n), 0.5)
+			life = this.particleProps[i5]
+			ttl = this.particleProps[i6]
+			speed = this.particleProps[i7]
+			x2 = x + vx * speed
+			y2 = y + vy * speed
+			radius = this.particleProps[i8]
+			hue = this.particleProps[i9]
+
+			this.drawParticleSwirl(x, y, x2, y2, life, ttl, radius, hue)
+
+			life++
+
+			this.particleProps[i] = x2
+			this.particleProps[i2] = y2
+			this.particleProps[i3] = vx
+			this.particleProps[i4] = vy
+			this.particleProps[i5] = life;
+
+			(this.checkBounds(x, y) || life > ttl) && this.initParticle(i)
+		}
+	}
+	checkBounds(x, y) {
+		return (
+			x > this.canvas.a.width ||
+			x < 0 ||
+			y > this.canvas.a.height ||
+			y < 0
+		)
 	}
 
-	drawParticle(x, y, theta, life, ttl, size, hue) {
-		let xRel = x - (0.5 * size), yRel = y - (0.5 * size);
+	drawParticleCoalesce(x, y, theta, life, ttl, size, hue) {
+		let xRel = x - (0.5 * size), yRel = y - (0.5 * size)
 
-		this.ctx.a.save();
-		this.ctx.a.lineCap = 'round';
-		this.ctx.a.lineWidth = 1;
-		this.ctx.a.strokeStyle = `hsla(${hue},100%,60%,${this.utils.fadeInOut(life, ttl)})`;
-		this.ctx.a.beginPath();
-		this.ctx.a.translate(xRel, yRel);
-		this.ctx.a.rotate(theta);
-		this.ctx.a.translate(-xRel, -yRel);
-		this.ctx.a.strokeRect(xRel, yRel, size, size);
-		this.ctx.a.closePath();
-		this.ctx.a.restore();
+		this.ctx.a.save()
+		this.ctx.a.lineCap = 'round'
+		this.ctx.a.lineWidth = 1
+		this.ctx.a.strokeStyle = `hsla(${hue},100%,60%,${this.utils.fadeInOut(life, ttl)})`
+		this.ctx.a.beginPath()
+		this.ctx.a.translate(xRel, yRel)
+		this.ctx.a.rotate(theta)
+		this.ctx.a.translate(-xRel, -yRel)
+		this.ctx.a.strokeRect(xRel, yRel, size, size)
+		this.ctx.a.closePath()
+		this.ctx.a.restore()
+	}
+
+	drawParticleSwirl(x, y, x2, y2, life, ttl, radius, hue) {
+		this.ctx.a.save()
+		this.ctx.a.lineCap = 'round'
+		this.ctx.a.lineWidth = radius
+		this.ctx.a.strokeStyle = `hsla(${hue},100%,60%,${this.utils.fadeInOut(life, ttl)})`
+		this.ctx.a.beginPath()
+		this.ctx.a.moveTo(x, y)
+		this.ctx.a.lineTo(x2, y2)
+		this.ctx.a.stroke()
+		this.ctx.a.closePath()
+		this.ctx.a.restore()
 	}
 
 	renderGlow() {
-		this.ctx.b.save();
-		this.ctx.b.filter = 'blur(8px) brightness(200%)';
-		this.ctx.b.globalCompositeOperation = 'lighter';
-		this.ctx.b.drawImage(this.canvas.a, 0, 0);
-		this.ctx.b.restore();
+		this.ctx.b.save()
+		this.ctx.b.filter = 'blur(8px) brightness(200%)'
+		this.ctx.b.globalCompositeOperation = 'lighter'
+		this.ctx.b.drawImage(this.canvas.a, 0, 0)
+		this.ctx.b.restore()
 
-		this.ctx.b.save();
-		this.ctx.b.filter = 'blur(4px) brightness(200%)';
-		this.ctx.b.globalCompositeOperation = 'lighter';
-		this.ctx.b.drawImage(this.canvas.a, 0, 0);
-		this.ctx.b.restore();
+		this.ctx.b.save()
+		this.ctx.b.filter = 'blur(4px) brightness(200%)'
+		this.ctx.b.globalCompositeOperation = 'lighter'
+		this.ctx.b.drawImage(this.canvas.a, 0, 0)
+		this.ctx.b.restore()
 	}
 
 	render() {
-		this.ctx.b.save();
-		this.ctx.b.globalCompositeOperation = 'lighter';
-		this.ctx.b.drawImage(this.canvas.a, 0, 0);
-		this.ctx.b.restore();
+		this.ctx.b.save()
+		this.ctx.b.globalCompositeOperation = 'lighter'
+		this.ctx.b.drawImage(this.canvas.a, 0, 0)
+		this.ctx.b.restore()
 	}
 }

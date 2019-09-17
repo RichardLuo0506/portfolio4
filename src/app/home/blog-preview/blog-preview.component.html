@@ -1,8 +1,13 @@
 <nav class="top-nav">
   <ul class="menu-valentine">
-    <li *ngFor="let blog of blogs" class="menu-item"><a [routerLink]="['blog/' + blog.link]" class="menu-link">{{blog.title}}</a></li>
+    <li *ngFor="let article of articles" class="menu-item"><a [routerLink]="['blog/' + article.link]" class="menu-link">{{article.title}}</a></li>
   </ul>
   <angular-tooltip tooltip-text="Blog" tooltip-direction="left">
-  	<a routerLink="blog" class="blog-btn" title="Blog"><i class="icomoon icon-newspaper"></i></a>
+    <a routerLink="blog" class="blog-btn"><i class="icomoon icon-newspaper"></i></a>
   </angular-tooltip>
 </nav>
+<article>
+  <header>{{featuredArticle.title}}</header>
+  <div class="blurb">{{featuredArticle.blurb}}</div>
+</article>
+<div class="blog-controls"></div>
