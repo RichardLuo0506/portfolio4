@@ -7,10 +7,10 @@ import { Injectable } from '@angular/core';
 export class ScriptLoaderService {
 	private scripts = {
 		// Ambient Canvas Backgrounds
-		noise: { src: '../lib/ambient-canvas-backgrounds/noise.min.js' },
-		util: { src: '../lib/ambient-canvas-backgrounds/util.js' },
-		coalesce: { src: '../lib/ambient-canvas-backgrounds/coalesce.js' },
-		swirl: { src: '../lib/ambient-canvas-backgrounds/swirl.js' },
+		noise: { src: '../assets/lib/ambient-canvas-backgrounds/noise.min.js' },
+		util: { src: '../assets/lib/ambient-canvas-backgrounds/util.js' },
+		coalesce: { src: '../assets/lib/ambient-canvas-backgrounds/coalesce.js' },
+		swirl: { src: '../assets/lib/ambient-canvas-backgrounds/swirl.js' },
 	};
 
 	constructor() { }
@@ -23,7 +23,6 @@ export class ScriptLoaderService {
 	}
 
 	loadScript(name: string) {
-		var self = this;
 		return new Promise((resolve, reject) => {
 			if (!this.scripts[name])
 				resolve({ script: name, loaded: false, status: 'Does not Exist' })
@@ -33,6 +32,7 @@ export class ScriptLoaderService {
 				const script = document.createElement('script')
 				script.type = 'text/javascript'
 				script.src = this.scripts[name].src
+
 				// cross browser handling of onLoaded event
 				if (script['readyState']) {  // IE
 					script['onreadystatechange'] = () => {

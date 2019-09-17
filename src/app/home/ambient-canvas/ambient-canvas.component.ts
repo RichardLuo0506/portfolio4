@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ScriptLoaderService } from '../../script-loader.service';
+import { AmbientCanvas } from './ambient-canvas.model';
 
 @Component({
 	selector: 'ambient-canvas',
@@ -7,11 +8,18 @@ import { ScriptLoaderService } from '../../script-loader.service';
 	styleUrls: ['./ambient-canvas.component.sass']
 })
 export class AmbientCanvasComponent implements OnInit {
-
+	// constructor(private scriptLoader: ScriptLoaderService, private winRef: WindowRef) { }
 	constructor(private scriptLoader: ScriptLoaderService) { }
 
 	async ngOnInit() {
-		let boob = await this.scriptLoader.load('noise', 'util', 'coalesce')
-		console.log(boob);
+		await this.scriptLoader.load('noise')
+		let ambientCanvas = new AmbientCanvas('coalesce')
+		ambientCanvas.setup()
+
+	}
+
+	@HostListener('window:resize')
+	onWindowResize() {
+
 	}
 }
