@@ -12,6 +12,7 @@ export class BlogService {
 			new Blog('New Portfolio Site'),
 			new Blog('Relearning Angular'),
 			new Blog('Finally Using ES6'),
+			// new Blog('Finally Using ES6'),
 		]
 	}
 

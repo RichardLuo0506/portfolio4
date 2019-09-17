@@ -5,18 +5,47 @@
 	.top-nav
 		height: 106px
 		display: flex
-		padding: 30px
+		padding: 0 30px
 		align-items: center
+		justify-content: space-between
 		ul
 			margin: 0
 			padding: 0
 			list-style: none
 			display: flex
+			align-items: center
+			overflow: hidden
+			position: relative
+			margin-right: 30px
+			flex: 1
+			height: 100%
+			&:after
+				display: block 
+				content: ''
+				position: absolute
+				top: 0
+				right: 0
+				bottom: 0
+				width: 30px
+				background: linear-gradient(to right, rgba(255,255,255,0.01), white)
+				pointer-events: none
 			li
-				margin-left: 30px
+				margin-left: 10px
 				a
+					padding: 15px
+					display: inline-block
 					text-decoration: none
 					white-space: nowrap
+					color: $dark-subtext
+					text-transform: uppercase
+					letter-spacing: 1px
+					font-size: 12px
+					font-weight: 400
+					position: relative
+				
+					&:hover
+						color: $red
+					
 		.blog-btn
 			display: flex
 			width: 40px

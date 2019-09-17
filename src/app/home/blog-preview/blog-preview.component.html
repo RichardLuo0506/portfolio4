@@ -1,8 +1,7 @@
 <nav class="top-nav">
-  <ul>
-    <li *ngFor="let blog of blogs"><a [routerLink]="['blog/' + blog.link]">{{blog.title}}</a></li>
+  <ul class="menu-valentine">
+    <li *ngFor="let blog of blogs" class="menu-item"><a [routerLink]="['blog/' + blog.link]" class="menu-link">{{blog.title}}</a></li>
   </ul>
-  <div class="spacer"></div>
   <angular-tooltip tooltip-text="Blog" tooltip-direction="left">
   	<a routerLink="blog" class="blog-btn" title="Blog"><i class="icomoon icon-newspaper"></i></a>
   </angular-tooltip>

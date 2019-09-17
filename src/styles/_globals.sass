@@ -12,3 +12,66 @@ button
 	&:hover
 		cursor: pointer
 
+// effects
+/* Valentine */
+.menu-valentine .menu-item 
+	position: relative
+.menu-valentine .menu-link 
+	position: relative
+	display: block
+	text-align: center
+	transition: color 0.3s
+.menu-valentine .menu-link:hover,
+.menu-valentine .menu-link:focus 
+	color: #929292
+.menu-valentine .menu-item:hover .menu-link 
+	color: #d94f5c
+.menu-valentine .menu-item::before,
+.menu-valentine .menu-item::after,
+.menu-valentine .menu-link::before,
+.menu-valentine .menu-link::after 
+	content: ''
+	position: absolute
+	background: #d94f5c
+	-webkit-transform-origin: 350% 350%
+	transform-origin: 350% 350%
+	-webkit-transition: -webkit-transform 0.5s
+	transition: transform 0.5s
+	-webkit-transition-timing-function: cubic-bezier(0, 0, 0.2, 1)
+	transition-timing-function: cubic-bezier(0, 0, 0.2, 1)
+.menu-valentine .menu-item::before,
+.menu-valentine .menu-item::after 
+	top: 0
+	width: 2px
+	height: 100%
+	-webkit-transform: scale3d(1, 0, 1)
+	transform: scale3d(1, 0, 1)
+.menu-valentine .menu-item::before 
+	left: 0
+	-webkit-transition-delay: 0.05s
+	transition-delay: 0.05s
+.menu-valentine .menu-item::after 
+	right: 0
+	-webkit-transition-delay: 0.15s
+	transition-delay: 0.15s
+.menu-valentine .menu-link::before,
+.menu-valentine .menu-link::after 
+	left: 0
+	width: 100%
+	height: 2px
+	-webkit-transform: scale3d(0, 1, 1)
+	transform: scale3d(0, 1, 1)
+.menu-valentine .menu-link::before 
+	top: 0
+	-webkit-transition-delay: 0.1s
+	transition-delay: 0.1s
+.menu-valentine .menu-link::after 
+	bottom: 0
+.menu-valentine .menu-item:hover::before,
+.menu-valentine .menu-item:hover::after,
+.menu-valentine .menu-item:hover .menu-link::before,
+.menu-valentine .menu-item:hover .menu-link::after 
+	-webkit-transform: scale3d(1, 1, 1)
+	transform: scale3d(1, 1, 1)
+
+
