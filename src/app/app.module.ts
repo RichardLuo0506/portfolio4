@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularTooltipModule } from '@gustafguner/angular-tooltip';
@@ -27,6 +28,7 @@ import { ClampyModule } from '@clampy-js/ngx-clampy';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     AngularTooltipModule,
     ClampyModule

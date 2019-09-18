@@ -64,71 +64,77 @@
 				font-size: 24px
 			&:hover
 				color: $red
-	article
+	.article-container
 		flex: 1
 		overflow: hidden
-		padding: 20px 100px
+		margin: 20px 100px
 		position: relative
-		header
-			font-size: 50px
-			line-height: 50px
-			font-weight: 700
-			color: $dark
-			display: -webkit-box
-			-webkit-line-clamp: 3
-			-webkit-box-orient: vertical
-			overflow: hidden
-			font-family: $playfair
-
-		.blurb
-			color: $text-muted
-			line-height: 28px
-			font-size: 16px
-			margin: 30px 10%
-		.read-more
-			height: 30px
-			text-transform: uppercase
-			margin-right: 10%
-			font-size: 18px
-			color: $dark
-			text-decoration: none
-			font-weight: 400
-			text-align: right
-			display: inline-flex
-			float: right
-			align-items: center
-			font-weight: 500
-			color: $dark-subtext
-			span
-				padding: 0 10px
-				position: relative
+		article
+			position: absolute
+			top: 0
+			right: 0
+			bottom: 0
+			left: 0
+			header
+				font-size: 50px
+				line-height: 50px
+				font-weight: 700
+				color: $dark
+				display: -webkit-box
+				-webkit-line-clamp: 3
+				-webkit-box-orient: vertical
 				overflow: hidden
-				transition: 300ms
-				height: 24px
-				line-height: 24px
-				&:before
-					content: ''
-					display: block
-					background: rgb($red, 30%)
-					top: 50%
-					right: 0
-					bottom: 0
-					left: 0
-					position: absolute
+				font-family: $playfair
+
+			.blurb
+				color: $text-muted
+				line-height: 28px
+				font-size: 16px
+				margin: 30px 10%
+			.read-more
+				height: 30px
+				text-transform: uppercase
+				margin-right: 10%
+				font-size: 18px
+				color: $dark
+				text-decoration: none
+				font-weight: 400
+				text-align: right
+				display: inline-flex
+				float: right
+				align-items: center
+				font-weight: 500
+				color: $dark-subtext
+				span
+					padding: 0 10px
+					position: relative
+					overflow: hidden
 					transition: 300ms
-					transform: translateX(-105%)
-	
-			i
-				font-size: 30px
-				margin-left: 5px
-				transition: 300ms
-			&:hover
-				color: $red
-				span:before 
-					transform: translateX(0)
+					height: 24px
+					line-height: 24px
+					&:before
+						content: ''
+						display: block
+						background: rgb($red, 30%)
+						top: 50%
+						right: 0
+						bottom: 0
+						left: 0
+						position: absolute
+						transition: 300ms
+						transform: translateX(-105%)
+		
 				i
-					margin-left: 10px
-					margin-right: -5px
+					font-size: 30px
+					margin-left: 5px
+					transition: 300ms
+				&:hover
+					color: $red
+					span:before 
+						transform: translateX(0)
+					i
+						margin-left: 10px
+						margin-right: -5px
 
 	.blog-controls
 		flex: 0 0 50px
@@ -141,6 +147,8 @@
 			color: $text-muted
 			font-size: 18px
 			transition: 200ms
+			&[disabled]
+				pointer-events: none
 			&.left
 				background: #1f2326
 				color: $dark-subtext

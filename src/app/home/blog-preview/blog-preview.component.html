@@ -6,12 +6,16 @@
     <a routerLink="blog" class="blog-btn"><i class="icomoon icon-newspaper"></i></a>
   </angular-tooltip>
 </nav>
-<article>
-  <header title="{{featuredArticle.title}}">{{featuredArticle.title}}</header>
-  <div class="blurb" clampy="5" clampyContent="{{featuredArticle.blurb}}"></div>
-  <a href="" class="read-more clearfix"><span>Read More</span><i class="ionicons ion-ios-book"></i></a>
-</article>
+<div class="article-container">
+  <ng-template ngFor let-article [ngForOf]="[ currentArticle ]">
+    <article [@slideAnimation]="orientation">
+      <header title="{{article.title}}">{{article.title}}</header>
+      <div class="blurb" clampy="5" clampyContent="{{article.blurb}}"></div>
+      <a [routerLink]="['blog/' + article.link]" class="read-more clearfix"><span>Read More</span><i class="ionicons ion-ios-book"></i></a>
+    </article>
+  </ng-template>
+</div>
 <div class="blog-controls">
-	<button (click)="flipPage('next')" class="flip-page-btn left"><i class="ionicons ion-chevron-left"></i></button>
-	<button (click)="flipPage('prev')" class="flip-page-btn right"><i class="ionicons ion-chevron-right"></i></button>
+  <button (click)="flipPage('prev')" [disabled]="disabledDirection === 'left'" class="flip-page-btn left"><i class="ionicons ion-chevron-left"></i></button>
+  <button (click)="flipPage('next')" [disabled]="disabledDirection === 'right'" class="flip-page-btn right"><i class="ionicons ion-chevron-right"></i></button>
 </div>
