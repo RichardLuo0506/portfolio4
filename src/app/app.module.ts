@@ -14,6 +14,7 @@ import { BlogComponent } from './blog/blog.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AmbientCanvasComponent } from './home/ambient-canvas/ambient-canvas.component';
 import { ClampyModule } from '@clampy-js/ngx-clampy';
+import { ProjectPreviewComponent } from './home/project-preview/project-preview.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ClampyModule } from '@clampy-js/ngx-clampy';
     ScrollSpyDirective,
     BlogComponent,
     NotFoundComponent,
-    AmbientCanvasComponent
+    AmbientCanvasComponent,
+    ProjectPreviewComponent
   ],
   imports: [
     BrowserModule,

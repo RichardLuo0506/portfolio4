@@ -7,20 +7,24 @@
     </div>
     <div class="half right-half">
       <div class="blog-panel">
-        <app-blog-preview></app-blog-preview>
+        <blog-preview></blog-preview>
       </div>
       <div class="portfolio-panel">
         <div class="portfolio-item-wrapper">
           <div class="portfolio-item">
-            <div class="inner"></div>
+            <div class="inner">
+              <project-preview [data]="projects[0]"></project-preview> 
+            </div>
           </div>
         </div>
         <div class="portfolio-item-wrapper">
           <div class="portfolio-item">
-            <div class="inner"></div>
+            <div class="inner">
+              <project-preview [data]="projects[1]"></project-preview> 
+            </div>
           </div>
         </div>
-        <a href="#" class="show-portfolio">Portfolio so far</a>
+        <a (click)="scrollTo('projects')" class="show-portfolio">Portfolio so far</a>
       </div>
     </div>
   </section>
@@ -41,7 +45,7 @@
     <p>section2</p>
     <p>section2</p>
   </section>
-  <section id="section3" data-section-title="Section 3">
+  <section id="projects" data-section-title="Recent Work">
     <p>section3</p>
     <p>section3</p>
     <p>section3</p>

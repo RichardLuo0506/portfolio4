@@ -6,7 +6,7 @@ import { BlogService } from '../../blog/blog.service';
 type Orientation = ("prev" | "next" | "none")
 
 @Component({
-	selector: 'app-blog-preview',
+	selector: 'blog-preview',
 	templateUrl: './blog-preview.component.html',
 	styleUrls: ['./blog-preview.component.sass'],
 	animations: [

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavBarService } from '../nav-bar/nav-bar.service';
+import { ProjectService } from './project-preview/project.service';
 
 @Component({
 	selector: 'app-home',
@@ -7,13 +8,23 @@ import { NavBarService } from '../nav-bar/nav-bar.service';
 	styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
-
-	constructor(private navBarService: NavBarService) { }
+	private _projects
+	constructor(private navBarService: NavBarService, private projectService: ProjectService) { }
 
 	ngOnInit() {
+		this._projects = this.projectService.projects
+	}
+
+	get projects() {
+		return this._projects
 	}
 
 	onSectionChange(sectionId: string) {
 		this.navBarService.onSectionChanged(sectionId);
+	}
+
+	scrollTo(id: string) {
+		document.querySelector('#' + id)
+			.scrollIntoView();
 	}
 }
