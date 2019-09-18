@@ -20,11 +20,11 @@ export class HomeComponent implements OnInit {
 	}
 
 	onSectionChange(sectionId: string) {
-		this.navBarService.onSectionChanged(sectionId);
+		this.navBarService.onSectionChanged(sectionId)
 	}
 
 	scrollTo(id: string) {
 		document.querySelector('#' + id)
-			.scrollIntoView();
+			.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" })
 	}
 }
