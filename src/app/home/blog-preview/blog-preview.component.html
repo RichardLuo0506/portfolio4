@@ -7,7 +7,8 @@
   </angular-tooltip>
 </nav>
 <article>
-  <header>{{featuredArticle.title}}</header>
-  <div class="blurb">{{featuredArticle.blurb}}</div>
+  <header title="{{featuredArticle.title}}">{{featuredArticle.title}}</header>
+  <div class="blurb" clampy="5" clampyContent="{{featuredArticle.blurb}}"></div>
+  <a href="" class="read-more clearfix"><span>Read More</span><i class="ionicons ion-ios-book"></i></a>
 </article>
 <div class="blog-controls"></div>

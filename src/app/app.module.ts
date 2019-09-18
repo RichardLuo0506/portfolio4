@@ -12,6 +12,7 @@ import { BlogPreviewComponent } from './home/blog-preview/blog-preview.component
 import { BlogComponent } from './blog/blog.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AmbientCanvasComponent } from './home/ambient-canvas/ambient-canvas.component';
+import { ClampyModule } from '@clampy-js/ngx-clampy';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AmbientCanvasComponent } from './home/ambient-canvas/ambient-canvas.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularTooltipModule
+    AngularTooltipModule,
+    ClampyModule
   ],
   providers: [WindowRef, NavBarService],
   bootstrap: [AppComponent]
