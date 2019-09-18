@@ -1,3 +1,5 @@
+import OpenSimplexNoise from 'open-simplex-noise';
+
 export class AmbientCanvas {
 	private utils: any = {}
 	private defaults: any = {}
@@ -70,15 +72,18 @@ export class AmbientCanvas {
 
 		// defaults
 		this.defaults.coalesce = {
-			particleCount: 700,
+			// particleCount: 700,
+			particleCount: 200,
 			particlePropCount: 9,
 			baseTTL: 100,
 			rangeTTL: 500,
 			baseSpeed: 0.1,
 			rangeSpeed: 1,
 			baseSize: 2,
-			rangeSize: 10,
-			baseHue: 10,
+			// rangeSize: 10,
+			rangeSize: 5,
+			// baseHue: 10,
+			baseHue: 220,
 			rangeHue: 100,
 			noiseSteps: 2,
 			xOff: 0.0025,
@@ -101,9 +106,12 @@ export class AmbientCanvas {
 			baseHue: 220,
 			rangeHue: 100,
 			noiseSteps: 8,
-			xOff: 0.00125,
-			yOff: 0.00125,
-			zOff: 0.0005,
+			// xOff: 0.00125,
+			xOff: 0.000125,
+			// yOff: 0.00125,
+			yOff: 0.000125,
+			// zOff: 0.0005,
+			zOff: 0.0001,
 			backgroundColor: 'hsla(260,40%,5%,1)',
 		}
 
@@ -165,7 +173,7 @@ export class AmbientCanvas {
 		this.tick = 0
 
 		if (this.type === 'swirl')
-			this.simplex = new SimplexNoise()
+			this.simplex = new OpenSimplexNoise(Date.now())
 
 		this.particleProps = new Float32Array(this.particlePropsLength)
 

@@ -11,4 +11,7 @@
   <div class="blurb" clampy="5" clampyContent="{{featuredArticle.blurb}}"></div>
   <a href="" class="read-more clearfix"><span>Read More</span><i class="ionicons ion-ios-book"></i></a>
 </article>
-<div class="blog-controls"></div>
+<div class="blog-controls">
+	<button (click)="flipPage('next')" class="flip-page-btn left"><i class="ionicons ion-chevron-left"></i></button>
+	<button (click)="flipPage('prev')" class="flip-page-btn right"><i class="ionicons ion-chevron-right"></i></button>
+</div>
