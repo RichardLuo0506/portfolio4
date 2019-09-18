@@ -19,12 +19,12 @@ export class AmbientCanvasComponent implements OnInit {
 	}
 
 	async initCanvas(type: string) {
-		await this.scriptLoader.load('noise')
-		let ambientCanvas = new AmbientCanvas(type)
-		ambientCanvas.setup()
+		// await this.scriptLoader.load('noise')
+		// let ambientCanvas = new AmbientCanvas(type)
+		// ambientCanvas.setup()
 
-		fromEvent(this.winRef.nativeWindow, 'resize').pipe(debounceTime(200)).subscribe(() => {
-			ambientCanvas.resize()
-		})
+		// fromEvent(this.winRef.nativeWindow, 'resize').pipe(debounceTime(200)).subscribe(() => {
+		// 	ambientCanvas.resize()
+		// })
 	}
 }
