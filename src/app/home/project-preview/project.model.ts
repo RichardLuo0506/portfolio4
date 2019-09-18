@@ -1,9 +1,13 @@
-export class Project {
-	private link: string
+interface ProjectOpts {
+	title: string,
+	subtitle?: string,
+	imgSrc?: string,
+	description?: string,
+}
 
-	constructor(
-		private title: string,
-		private subtitle?: string,
-		private description?: string,
-	) { }
+export class Project {
+	constructor(opts: ProjectOpts) {
+		Object.assign(this, opts)
+		console.log(this);
+	}
 }

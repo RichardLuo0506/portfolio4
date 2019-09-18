@@ -1,3 +1,10 @@
+.col-2 figure
+	background: -webkit-linear-gradient(45deg, #c5dc00 0%, #f11e63 100%)
+	background: linear-gradient(45deg, #c5dc00 0%, #f11e63 100%)
+
+.col-3 figure
+	background: -webkit-linear-gradient(45deg, #4CAF50 0%, #03A9F4 100%)
+	background: linear-gradient(45deg, #4CAF50 0%, #03A9F4 100%)
 figure
 	position: relative
 	overflow: hidden
@@ -6,32 +13,25 @@ figure
 	background: -webkit-linear-gradient(45deg, #c50c9d 0%, #05a1e6 100%)
 	background: linear-gradient(45deg, #c50c9d 0%, #05a1e6 100%)
 	text-align: center
+	font-size: 1em
 
-	&.figure2
-		background: -webkit-linear-gradient(45deg, #c5dc00 0%, #f11e63 100%)
-		background: linear-gradient(45deg, #c5dc00 0%, #f11e63 100%)
 
-	&.figure3
-		background: -webkit-linear-gradient(45deg, #4CAF50 0%, #03A9F4 100%)
-		background: linear-gradient(45deg, #4CAF50 0%, #03A9F4 100%)
 
 	&:hover
 		cursor: pointer
 
-		img
+		.thumb
 			opacity: 0.25
 
 		figcaption:before, figcaption:after
 			opacity: 1
 			-webkit-transform: scale(1)
 			transform: scale(1)
-
-		.subtitle
-			opacity: 1
-			color: white
-			-webkit-transform: translate3d(0, 0, 0)
-			transform: translate3d(0, 0, 0)
-
+		figcaption
+			.subtitle
+				opacity: 1
+				color: white
+				transform: translateY(calc(-50% + 1.5em))
 	// +media-sm-up
 	// 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)
 	// 	margin: 48px 96px
@@ -43,21 +43,24 @@ figure
 	// 	flex: 100%
 
 
-	img
+	.thumb
 		width: 100%
-		position: relative
-		display: block
-		max-height: 100%
-		max-width: 100%
+		height: 100%
+		position: absolute
+		top: 0
+		left: 0
 		opacity: 0.75
 		-webkit-transition: opacity 350ms
 		transition: opacity 350ms
+		background-position: center center
+		background-repeat: no-repeat
+		background-size: cover
 
 	figcaption
 		padding: 30px 20px
 		color: #fff
 		text-transform: uppercase
-		font-size: 1.25em
+		font-size: 1em
 		-webkit-backface-visibility: hidden
 		backface-visibility: hidden
 		position: absolute
@@ -68,10 +71,10 @@ figure
 
 		&:before
 			position: absolute
-			top: 30px
-			right: 30px
-			bottom: 30px
-			left: 30px
+			top: 2em
+			right: 2em
+			bottom: 2em
+			left: 2em
 			content: ""
 			opacity: 0
 			-webkit-transition: opacity 0.35s, -webkit-transform 0.35s
@@ -84,10 +87,10 @@ figure
 
 		&:after
 			position: absolute
-			top: 30px
-			right: 30px
-			bottom: 30px
-			left: 30px
+			top: 2em
+			right: 2em
+			bottom: 2em
+			left: 2em
 			content: ""
 			opacity: 0
 			-webkit-transition: opacity 0.35s, -webkit-transform 0.35s
@@ -102,15 +105,22 @@ figure
 			margin: 0
 			word-spacing: -0.15em
 			font-weight: 300
-			padding-top: 30%
 			-webkit-transition: -webkit-transform 0.35s
 			transition: transform 0.35s
-			-webkit-transform: translate3d(0, -20px, 0)
-			transform: translate3d(0, -20px, 0)
 			color: white
+			padding: 0 3em
+			position: absolute
+			top: 50%
+			left: 0
+			right: 0
+			transform: translateY(-2.2em)
+			display: -webkit-box
+			-webkit-line-clamp: 2
+			-webkit-box-orient: vertical
+			overflow: hidden
 
 			span
-				font-weight: 800
+				font-weight: 700
 
 			// +media-xs
 			// 	font-size: 24px
@@ -120,11 +130,14 @@ figure
 			// 	font-size: 24px
 
 		.subtitle
-			padding: 0 2.5em
+			padding: 0 5em
 			opacity: 0
 			-webkit-transition: opacity 0.35s, -webkit-transform 0.35s
 			transition: opacity 0.35s, transform 0.35s
-			-webkit-transform: translate3d(0, 20px, 0)
-			transform: translate3d(0, 20px, 0)
 			letter-spacing: 1px
-			font-size: 68.5%
+			font-size: 0.6em
+			position: absolute
+			top: 50%
+			left: 0
+			right: 0
+			transform: translateY(calc(-50% + 4em))

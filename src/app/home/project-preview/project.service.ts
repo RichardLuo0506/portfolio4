@@ -9,8 +9,21 @@ export class ProjectService {
 
 	constructor() {
 		this._projects = [
-			new Project('Goat <span>Alerts</span>', 'Automated TradingView Bot'),
-			new Project('Portfolio v4', 'Built With Angular 8'),
+			new Project({
+				title: 'Goat <span>Alerts</span>',
+				subtitle: 'Automated TradingView Bot',
+				imgSrc: 'assets/img/goat-sw.png'
+			}),
+			new Project({
+				title: 'Portfolio <span>v3</span>',
+				subtitle: 'Built With AngularJS',
+				imgSrc: 'assets/img/portfolio3.png'
+			}),
+			new Project({
+				title: 'Portfolio <span>v4</span>',
+				subtitle: 'Built With Angular 8',
+				imgSrc: ''
+			}),
 		]
 	}
 
