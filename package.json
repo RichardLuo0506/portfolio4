@@ -22,7 +22,7 @@
     "@clampy-js/ngx-clampy": "^8.0.1",
     "@gustafguner/angular-tooltip": "^1.0.0",
     "element-resize-detector": "^1.1.15",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "lodash-es": "^4.17.15",
     "normalize.css": "^8.0.1",
     "open-simplex-noise": "^1.6.0",
